@@ -1,7 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import User from "../models/User.js";
-import { deleteFromCloudinary, uploadOnCloudinary } from "../utils/cloudinary.js";
+import { deleteFromCloudinary, getPublicIdFromUrl, uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 const generateAccessAndRefereshTokens = async (userId) => {
@@ -249,13 +249,6 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
         .status(200)
         .json(new ApiResponse(200, user, "Account details updated successfully"))
 });
-
-const getPublicIdFromUrl = (url) => {
-    const parts = url.split('/');
-    const publicIdWithExtension = parts[parts.length - 1]; // e.g., sample_image.jpg
-    const publicId = publicIdWithExtension.split('.')[0]; // e.g., sample_image
-    return publicId;
-};
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
 
